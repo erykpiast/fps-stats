@@ -30,17 +30,23 @@ export default class FpsAggregator {
             this._unregisterFpsMeterCallback = this._fpsMeter.registerCallback((currentE) => {
                 // FPS values difference between current and last saved entry
                 var fpsDiff = ((lastSavedE && Math.abs((lastSavedE.avgFps - currentE.avgFps))) || 0);
-                var significantChange = (fpsDiff > this._minFpsDifference);
+                var significantChange = (fpsDiff >= this._minFpsDifference);
 
                 // if current FPS value in current entry differs significantly from the last one we saved
                 // add last seen entry
                 // we don't want to have plot like this
                 //
-                // ____-------¯¯¯¯¯¯¯¯-------_____
+                //            frame here
+                //                |
+                // ____-------¯¯¯¯¯¯¯¯¯-------_____
                 //
                 // rather like that
                 //
+                //            frame here
+                //                |
                 // ______________-¯-______________
+                //              |   |
+                // frames with not significant change
                 //
                 if((lastE !== lastSavedE) && significantChange) {
                     this._times.push({
@@ -90,7 +96,7 @@ export default class FpsAggregator {
      *         @property {Object} [n].x - time of creating entry
      *         @property {Object} [n].y - average FPS value for given time
      */
-    getTimes() {
+    get times() {
         return this._times.slice();
     }
 }
