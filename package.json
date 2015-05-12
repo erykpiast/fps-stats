@@ -1,5 +1,5 @@
 {
-  "name": "fps-meter",
+  "name": "fps-stats",
   "version": "0.0.0",
   "author": "Eryk Napierala",
   "description": "Module for measuring average frames per second value.",
@@ -15,7 +15,7 @@
     "meter",
     "average"
   ],
-  "main": "dist/fps-meter.js",
+  "main": "dist",
   "devDependencies": {
     "babel": "~5.2",
     "babelify": "~6.0",
@@ -39,9 +39,12 @@
     "jscs": "jscs src/",
     "mocha": "mocha --compilers js:babel/register --reporter spec --ui tdd test",
     "test": "npm run jshint && npm run mocha",
-    "browserify": "browserify src/fps-meter.js -t babelify --standalone FpsMeter --outfile dist/fps-meter.js",
-    "uglify": "uglifyjs dist/fps-meter.js -o dist/fps-meter.min.js",
-    "dist": "npm run browserify && npm run uglify",
+    "meter-browserify": "browserify src/fps-meter.js -t babelify --standalone FpsMeter --outfile dist/fps-meter.js",
+    "meter-uglify": "uglifyjs dist/fps-meter.js -o dist/fps-meter.min.js",
+    "meter-dist": "npm run meter-browserify && npm run meter-uglify",
+    "aggregator-browserify": "browserify src/fps-aggregator.js -t babelify --standalone FpsAggregator --outfile dist/fps-aggregator.js",
+    "aggregator-uglify": "uglifyjs dist/fps-aggregator.js -o dist/fps-aggregator.min.js",
+    "aggregator-dist": "npm run aggregator-browserify && npm run aggregator-uglify",
     "precompile": "rm -rf dist/ && mkdir -p dist",
     "compile": "babel -d dist/ src/",
     "prepublish": "npm run compile",
