@@ -19,7 +19,7 @@ export default class FpsMeter {
         let pageVisibility = new PageVisibility();
         let requestedAnimationFrame;
 
-        let pageIsNotVisible = pageVisibility.isVisible();
+        let pageIsNotVisible = pageVisibility.isHidden();
         let pageWasNotVisible;
         pageVisibility.on('hide', function() {
             pageIsNotVisible = true;
@@ -33,7 +33,7 @@ export default class FpsMeter {
 
         let self = this;
         (function frameHandler(currentTime) {
-            if('undefined' !== typeof currentTime) {
+            if('undefined' !== typeof currentTime && !pageIsNotVisible) {
                 if(pageWasNotVisible) {
                     pageWasNotVisible = false;
 

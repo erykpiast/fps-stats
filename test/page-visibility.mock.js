@@ -40,39 +40,9 @@ const documentMock = (function() {
 })();
 const changePageVisibility = documentMock.changeVisibility;
 
-const windowMock = (function() {
-    const unloadHandlers = [ ];
-    const mock = { };
-
-    mock.addEventListener = function(eventName, handler) {
-        unloadHandlers.push(handler);
-    };
-
-    mock.removeEventListener = function(eventName, handler) {
-        unloadHandlers.splice(
-            unloadHandlers.indexOf(handler),
-            1
-        );
-    };
-
-    function unload() {
-        unloadHandlers.forEach((handler) => {
-            handler();
-        });
-    }
-
-
-    return {
-        mock: mock,
-        unload: unload
-    };
-})();
-const unloadWindow = windowMock.unload;
-
 proxyquire.noCallThru();
 const PageVisibility = proxyquire('../src/page-visibility', {
-    './document': documentMock.mock,
-    './window': windowMock.mock
+    './document': documentMock.mock
 });
 
-export { PageVisibility as mock, unloadWindow, changePageVisibility };
+export { PageVisibility as mock, changePageVisibility };

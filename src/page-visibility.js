@@ -1,6 +1,5 @@
 import { EventEmitter } from 'events';
 import document from './document';
-import window from './window';
 import addEventListener from './add-event-listener';
 import { createEnsureAvailabilityFn } from './oo-utils';
 
@@ -10,7 +9,7 @@ let shimvis = true;
 let changeEventName, hiddenPropertyName;
 
 if ('undefined' !== typeof document.hidden) {
-    hiddenPropertyName = 'hiddenPropertyName';
+    hiddenPropertyName = 'hidden';
     changeEventName = 'visibilitychange';
 } else if ('undefined' !== typeof document.mozHidden) {
     hiddenPropertyName = 'mozHidden';
@@ -27,9 +26,6 @@ export default class PageVisibility extends EventEmitter {
     constructor() {
         super();
 
-        let removeWindowUnloadListener = addEventListener(window, 'unload', () => {
-            this.emit('exit');
-        }, false);
         let removeChangeListener;
 
         if (PageVisibility.supported) {
@@ -65,7 +61,6 @@ export default class PageVisibility extends EventEmitter {
 
             this._isDisposed = true;
 
-            removeWindowUnloadListener();
             removeChangeListener();
         };
     }
