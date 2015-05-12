@@ -1,55 +1,56 @@
 {
-    "name": "fps-meter",
-    "version": "0.0.0",
-    "author": "Eryk Napierala",
-    "description": "Module for measuring average frames per second value.",
-    "license": "MIT",
-    "homepage": "https://github.com/erykpiast/fps-meter",
-    "bugs": "https://github.com/erykpiast/fps-meter/issues",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/erykpiast/fps-meter"
-    },
-    "keywords": [
-        "fps",
-        "meter",
-        "average"
-    ],
-    "main": "dist/fps-meter.js",
-    "dependencies": {
-        "get-parameter-names": "^0.2.0",
-        "just-di": "^0.1.0"
-    },
-    "devDependencies": {
-        "babel": "~5.2",
-        "babelify": "~6.0",
-        "browserify": "~9.0",
-        "chai": "~2.3",
-        "chai-spies": "~0.6",
-        "chai-spies-tdd": "~0.1",
-        "cyclejs": "~0.20",
-        "jscs": "~1.12",
-        "jshint": "~2.7",
-        "mocha": "~2.2",
-        "uglify-js": "~2.4"
-    },
-    "engines": {
-        "node": ">=0.10.0"
-    },
-    "scripts": {
-        "jshint": "jshint src/",
-        "jscs": "jscs src/",
-        "mocha": "mocha --compilers js:babel/register --reporter spec --ui tdd test",
-        "test": "npm run jshint && npm run mocha",
-        "browserify": "browserify src/fps-meter.js -t babelify --standalone FpsMeter --outfile dist/fps-meter.js",
-        "uglify": "uglifyjs dist/fps-meter.js -o dist/fps-meter.min.js",
-        "dist": "npm run browserify && npm run uglify",
-        "precompile": "rm -rf dist/ && mkdir -p dist",
-        "compile": "babel -d dist/ src/",
-        "prepublish": "npm run compile",
-        "release": "npm run release-patch",
-        "release-patch": "git checkout master && npm run compile; git commit -a -m 'Build dist/'; npm version patch && git push origin master --tags && npm publish",
-        "release-minor": "git checkout master && npm run compile; git commit -a -m 'Build dist/'; npm version minor && git push origin master --tags && npm publish",
-        "release-major": "git checkout master && npm run compile; git commit -a -m 'Build dist/'; npm version major && git push origin master --tags && npm publish"
-    }
+  "name": "fps-meter",
+  "version": "0.0.0",
+  "author": "Eryk Napierala",
+  "description": "Module for measuring average frames per second value.",
+  "license": "MIT",
+  "homepage": "https://github.com/erykpiast/fps-meter",
+  "bugs": "https://github.com/erykpiast/fps-meter/issues",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/erykpiast/fps-meter"
+  },
+  "keywords": [
+    "fps",
+    "meter",
+    "average"
+  ],
+  "main": "dist/fps-meter.js",
+  "devDependencies": {
+    "babel": "~5.2",
+    "babelify": "~6.0",
+    "browserify": "~9.0",
+    "chai": "~2.3",
+    "chai-spies": "~0.6",
+    "cyclejs": "~0.20",
+    "jscs": "~1.12",
+    "jshint": "~2.7",
+    "mocha": "~2.2",
+    "proxyquire": "^1.4.0",
+    "request-animation-frame-mock": "git://github.com/erykpiast/request-animation-frame-mock",
+    "sinon-chai": "^2.7.0",
+    "uglify-js": "~2.4"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "jshint": "jshint src/",
+    "jscs": "jscs src/",
+    "mocha": "mocha --compilers js:babel/register --reporter spec --ui tdd test",
+    "test": "npm run jshint && npm run mocha",
+    "browserify": "browserify src/fps-meter.js -t babelify --standalone FpsMeter --outfile dist/fps-meter.js",
+    "uglify": "uglifyjs dist/fps-meter.js -o dist/fps-meter.min.js",
+    "dist": "npm run browserify && npm run uglify",
+    "precompile": "rm -rf dist/ && mkdir -p dist",
+    "compile": "babel -d dist/ src/",
+    "prepublish": "npm run compile",
+    "release": "npm run release-patch",
+    "release-patch": "git checkout master && npm run compile; git commit -a -m 'Build dist/'; npm version patch && git push origin master --tags && npm publish",
+    "release-minor": "git checkout master && npm run compile; git commit -a -m 'Build dist/'; npm version minor && git push origin master --tags && npm publish",
+    "release-major": "git checkout master && npm run compile; git commit -a -m 'Build dist/'; npm version major && git push origin master --tags && npm publish"
+  },
+  "dependencies": {
+    "request-animation-frame": "^0.1.1"
+  }
 }
