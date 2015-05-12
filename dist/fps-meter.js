@@ -41,7 +41,7 @@ var FpsMeter = (function () {
         var pageVisibility = new _pageVisibility2['default']();
         var requestedAnimationFrame = undefined;
 
-        var pageIsNotVisible = pageVisibility.isVisible();
+        var pageIsNotVisible = pageVisibility.isHidden();
         var pageWasNotVisible = undefined;
         pageVisibility.on('hide', function () {
             pageIsNotVisible = true;
@@ -55,7 +55,7 @@ var FpsMeter = (function () {
 
         var self = this;
         (function frameHandler(currentTime) {
-            if ('undefined' !== typeof currentTime) {
+            if ('undefined' !== typeof currentTime && !pageIsNotVisible) {
                 if (pageWasNotVisible) {
                     pageWasNotVisible = false;
 

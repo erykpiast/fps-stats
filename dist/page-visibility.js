@@ -22,10 +22,6 @@ var _document = require('./document');
 
 var _document2 = _interopRequireDefault(_document);
 
-var _window = require('./window');
-
-var _window2 = _interopRequireDefault(_window);
-
 var _addEventListener = require('./add-event-listener');
 
 var _addEventListener2 = _interopRequireDefault(_addEventListener);
@@ -39,7 +35,7 @@ var changeEventName = undefined,
     hiddenPropertyName = undefined;
 
 if ('undefined' !== typeof _document2['default'].hidden) {
-    hiddenPropertyName = 'hiddenPropertyName';
+    hiddenPropertyName = 'hidden';
     changeEventName = 'visibilitychange';
 } else if ('undefined' !== typeof _document2['default'].mozHidden) {
     hiddenPropertyName = 'mozHidden';
@@ -60,9 +56,6 @@ var PageVisibility = (function (_EventEmitter) {
 
         _get(Object.getPrototypeOf(PageVisibility.prototype), 'constructor', this).call(this);
 
-        var removeWindowUnloadListener = _addEventListener2['default'](_window2['default'], 'unload', function () {
-            _this2.emit('exit');
-        }, false);
         var removeChangeListener = undefined;
 
         if (PageVisibility.supported) {
@@ -100,7 +93,6 @@ var PageVisibility = (function (_EventEmitter) {
 
             _this2._isDisposed = true;
 
-            removeWindowUnloadListener();
             removeChangeListener();
         };
     }
