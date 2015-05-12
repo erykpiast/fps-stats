@@ -11,7 +11,7 @@ import proxyquire from 'proxyquire';
 
 import requestAnimationFrameMock from 'request-animation-frame-mock';
 
-import { mock as pageVisibilityMock } from './page-visibility.mock';
+import { mock as pageVisibilityMock, changePageVisibility } from './page-visibility.mock';
 
 requestAnimationFrameMock.setMode(requestAnimationFrameMock.modes.MANUAL);
 
@@ -196,6 +196,79 @@ suite('yielding FPS values', () => {
 
         avgFps = fpsCallback.lastCall.args[0].avgFps;
         assert.equal(avgFps, 40);
+    });
+
+});
+
+
+suite('page visibility change', () => {
+    let initialTime = 1000;
+    let frameTime = 1000/50;
+    let fpsMeter;
+    let fpsCallback;
+
+    setup(() => {
+        fpsCallback = sinon.spy();
+        fpsMeter = new FpsMeter();
+        fpsMeter.registerCallback(fpsCallback);
+
+        requestAnimationFrameMock.trigger(initialTime); // initial
+
+        changePageVisibility(true);
+    });
+
+    teardown(() => {
+        fpsMeter.dispose();
+        fpsMeter = fpsCallback = null;
+    });
+
+    suiteTeardown(() => {
+        requestAnimationFrameMock.getQueue().clear();
+    });
+
+
+    test(`should not emit fps entries when page is not visible`, () => {
+        changePageVisibility(false);
+
+        requestAnimationFrameMock.trigger(initialTime + frameTime);
+
+        assert.notCalled(fpsCallback);
+    });
+
+    test(`should not start emitting fps entries right after
+          page became visible`, () => {
+        changePageVisibility(false);
+        changePageVisibility(true);
+        requestAnimationFrameMock.trigger(initialTime + frameTime*4);
+        assert.notCalled(fpsCallback);
+    });
+
+    test(`should start emitting fps entries when second animation frame
+          after page became visible is emitted`, () => {
+        changePageVisibility(false);
+        changePageVisibility(true);
+
+        requestAnimationFrameMock.trigger(initialTime + frameTime*4);
+        requestAnimationFrameMock.trigger(initialTime + frameTime*5);
+        assert.called(fpsCallback);
+    });
+
+    test(`should take values for 'avgFps' from the second animation frame
+          after page became visible`, () => {
+        requestAnimationFrameMock.trigger(initialTime + frameTime);
+        requestAnimationFrameMock.trigger(initialTime + frameTime*3);
+        requestAnimationFrameMock.trigger(initialTime + frameTime*5);
+
+        changePageVisibility(false);
+        changePageVisibility(true);
+
+        requestAnimationFrameMock.trigger(initialTime + frameTime*10);
+        requestAnimationFrameMock.trigger(initialTime + frameTime*10 + 10);
+        requestAnimationFrameMock.trigger(initialTime + frameTime*10 + 30);
+        requestAnimationFrameMock.trigger(initialTime + frameTime*10 + 60);
+
+        let avgFps = fpsCallback.lastCall.args[0].avgFps;
+        assert.equal(avgFps, 50);
     });
 
 });
