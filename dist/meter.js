@@ -54,7 +54,7 @@ var FpsMeter = (function () {
         });
 
         var self = this;
-        (function frameHandler(currentTime) {
+        var frameHandler = function frameHandler(currentTime) {
             if ('undefined' !== typeof currentTime && !pageIsNotVisible) {
                 if (pageWasNotVisible) {
                     pageWasNotVisible = false;
@@ -79,7 +79,9 @@ var FpsMeter = (function () {
             }
 
             requestedAnimationFrame = _requestAnimationFrame.requestAnimationFrame(frameHandler);
-        })();
+        };
+
+        frameHandler();
 
         this.dispose = function () {
             ensureAvailability(_this);
