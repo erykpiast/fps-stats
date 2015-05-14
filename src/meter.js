@@ -31,27 +31,26 @@ export default class FpsMeter {
             }
         });
 
-        let self = this;
-        let frameHandler = function(currentTime) {
+        let frameHandler = (currentTime) => {
             if('undefined' !== typeof currentTime && !pageIsNotVisible) {
                 if(pageWasNotVisible) {
                     pageWasNotVisible = false;
 
-                    self._framesTimes.splice(0, self._framesTimes.length, currentTime);
+                    this._framesTimes.splice(0, this._framesTimes.length, currentTime);
                 } else {
-                    self._framesTimes.push(currentTime);
+                    this._framesTimes.push(currentTime);
 
-                    var result = self._calculateAvgFps(self._framesTimes);
+                    var result = this._calculateAvgFps(this._framesTimes);
 
                     if(result) {
                         // notify listeners about new FPS
-                        self._yieldFpsEntry({
+                        this._yieldFpsEntry({
                             currentTime: currentTime,
                             avgFps: result.avgFps
                         });
 
                         // remove frames used to calculate average
-                        self._framesTimes.splice(0, result.usedLastFrames - 1);
+                        this._framesTimes.splice(0, result.usedLastFrames - 1);
                     }
                 }
             }
