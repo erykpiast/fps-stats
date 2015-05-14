@@ -82,7 +82,7 @@ var FpsAggregator = (function () {
                     }
 
                     // pass the first and the last FPS entry, and also significan ones
-                    if (currentE.first && _this._times.length === 0 || currentE.last || significantChange) {
+                    if (_this._times.length === 0 || currentE.last || significantChange) {
                         _this._times.push({
                             y: parseFloat(currentE.avgFps.toFixed(2), 10),
                             x: Math.round(currentE.currentTime)

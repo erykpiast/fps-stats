@@ -112,7 +112,6 @@ var FpsMeter = (function () {
             if (result) {
                 process.nextTick(function () {
                     callback({
-                        first: true,
                         avgFps: result.avgFps,
                         currentTime: _this2._framesTimes[_this2.framesTimes.length - 1]
                     });
