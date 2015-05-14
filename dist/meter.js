@@ -53,27 +53,26 @@ var FpsMeter = (function () {
             }
         });
 
-        var self = this;
         var frameHandler = function frameHandler(currentTime) {
             if ('undefined' !== typeof currentTime && !pageIsNotVisible) {
                 if (pageWasNotVisible) {
                     pageWasNotVisible = false;
 
-                    self._framesTimes.splice(0, self._framesTimes.length, currentTime);
+                    _this._framesTimes.splice(0, _this._framesTimes.length, currentTime);
                 } else {
-                    self._framesTimes.push(currentTime);
+                    _this._framesTimes.push(currentTime);
 
-                    var result = self._calculateAvgFps(self._framesTimes);
+                    var result = _this._calculateAvgFps(_this._framesTimes);
 
                     if (result) {
                         // notify listeners about new FPS
-                        self._yieldFpsEntry({
+                        _this._yieldFpsEntry({
                             currentTime: currentTime,
                             avgFps: result.avgFps
                         });
 
                         // remove frames used to calculate average
-                        self._framesTimes.splice(0, result.usedLastFrames - 1);
+                        _this._framesTimes.splice(0, result.usedLastFrames - 1);
                     }
                 }
             }
