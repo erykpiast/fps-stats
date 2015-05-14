@@ -11,13 +11,13 @@ import proxyquire from 'proxyquire';
 
 import requestAnimationFrameMock from 'request-animation-frame-mock';
 
-import { mock as fpsMeterMock, spies as fpsMeterSpies, pushFpsEntry, setBeforeUnregisterEntry, setAfterRegisterEntry } from './fps-meter.mock';
+import { mock as fpsMeterMock, spies as fpsMeterSpies, pushFpsEntry, setBeforeUnregisterEntry, setAfterRegisterEntry } from './meter.mock';
 
 requestAnimationFrameMock.setMode(requestAnimationFrameMock.modes.MANUAL);
 
 proxyquire.noCallThru();
-const FpsAggregator = proxyquire('../src/fps-aggregator', {
-    './fps-meter': fpsMeterMock
+const FpsAggregator = proxyquire('../src/aggregator', {
+    './meter': fpsMeterMock
 });
 
 

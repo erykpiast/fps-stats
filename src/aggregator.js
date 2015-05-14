@@ -1,4 +1,4 @@
-import FpsMeter from './fps-meter';
+import FpsMeter from './meter';
 
 
 export default class FpsAggregator {

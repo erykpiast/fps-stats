@@ -4,31 +4,33 @@
   "author": "Eryk Napierala",
   "description": "Module for measuring average frames per second value.",
   "license": "MIT",
-  "homepage": "https://github.com/erykpiast/fps-meter",
-  "bugs": "https://github.com/erykpiast/fps-meter/issues",
+  "homepage": "https://github.com/erykpiast/fps-stats",
+  "bugs": "https://github.com/erykpiast/fps-stats/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/erykpiast/fps-meter"
+    "url": "https://github.com/erykpiast/fps-stats"
   },
   "keywords": [
     "fps",
     "meter",
     "average"
   ],
-  "main": "dist",
+  "dependencies": {
+    "request-animation-frame": "^0.1.1"
+  },
   "devDependencies": {
     "babel": "~5.2",
-    "babelify": "~6.0",
-    "browserify": "~9.0",
+    "babelify": "~6.1",
+    "browserify": "~10.0",
     "chai": "~2.3",
     "chai-spies": "~0.6",
     "cyclejs": "~0.20",
     "jscs": "~1.12",
     "jshint": "~2.7",
     "mocha": "~2.2",
-    "proxyquire": "^1.4.0",
+    "proxyquire": "~1.4",
     "request-animation-frame-mock": "git://github.com/erykpiast/request-animation-frame-mock",
-    "sinon-chai": "^2.7.0",
+    "sinon-chai": "~2.7",
     "uglify-js": "~2.4"
   },
   "engines": {
@@ -39,11 +41,11 @@
     "jscs": "jscs src/",
     "mocha": "mocha --compilers js:babel/register --reporter spec --ui tdd test",
     "test": "npm run jshint && npm run mocha",
-    "meter-browserify": "browserify src/fps-meter.js -t babelify --standalone FpsMeter --outfile dist/fps-meter.js",
-    "meter-uglify": "uglifyjs dist/fps-meter.js -o dist/fps-meter.min.js",
+    "meter-browserify": "browserify src/meter.js -t babelify --standalone FpsMeter --outfile dist/meter.js",
+    "meter-uglify": "uglifyjs dist/meter.js -o dist/meter.min.js",
     "meter-dist": "npm run meter-browserify && npm run meter-uglify",
-    "aggregator-browserify": "browserify src/fps-aggregator.js -t babelify --standalone FpsAggregator --outfile dist/fps-aggregator.js",
-    "aggregator-uglify": "uglifyjs dist/fps-aggregator.js -o dist/fps-aggregator.min.js",
+    "aggregator-browserify": "browserify src/aggregator.js -t babelify --standalone FpsAggregator --outfile dist/aggregator.js",
+    "aggregator-uglify": "uglifyjs dist/aggregator.js -o dist/aggregator.min.js",
     "aggregator-dist": "npm run aggregator-browserify && npm run aggregator-uglify",
     "precompile": "rm -rf dist/ && mkdir -p dist",
     "compile": "babel -d dist/ src/",
@@ -52,8 +54,5 @@
     "release-patch": "git checkout master && npm run compile; git commit -a -m 'Build dist/'; npm version patch && git push origin master --tags && npm publish",
     "release-minor": "git checkout master && npm run compile; git commit -a -m 'Build dist/'; npm version minor && git push origin master --tags && npm publish",
     "release-major": "git checkout master && npm run compile; git commit -a -m 'Build dist/'; npm version major && git push origin master --tags && npm publish"
-  },
-  "dependencies": {
-    "request-animation-frame": "^0.1.1"
   }
 }

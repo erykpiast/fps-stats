@@ -16,7 +16,7 @@ import { mock as pageVisibilityMock, changePageVisibility } from './page-visibil
 requestAnimationFrameMock.setMode(requestAnimationFrameMock.modes.MANUAL);
 
 proxyquire.noCallThru();
-const FpsMeter = proxyquire('../src/fps-meter', {
+const FpsMeter = proxyquire('../src/meter', {
     'request-animation-frame': requestAnimationFrameMock.mock,
     './page-visibility': pageVisibilityMock
 });
