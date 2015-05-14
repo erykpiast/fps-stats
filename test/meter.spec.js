@@ -17,7 +17,7 @@ requestAnimationFrameMock.setMode(requestAnimationFrameMock.modes.MANUAL);
 
 proxyquire.noCallThru();
 const FpsMeter = proxyquire('../src/meter', {
-    'request-animation-frame': requestAnimationFrameMock.mock,
+    'request-animation-frame-shim': requestAnimationFrameMock.mock,
     './page-visibility': pageVisibilityMock
 });
 

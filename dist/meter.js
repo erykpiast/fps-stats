@@ -16,9 +16,9 @@ var _pageVisibility2 = _interopRequireDefault(_pageVisibility);
 
 var _ooUtils = require('./oo-utils');
 
-var _requestAnimationFrame = require('request-animation-frame');
+var _requestAnimationFrameShim = require('request-animation-frame-shim');
 
-var ensureAvailability = _ooUtils.createEnsureAvailabilityFn('_isDisposed');
+var ensureAvailability = (0, _ooUtils.createEnsureAvailabilityFn)('_isDisposed');
 
 var FpsMeter = (function () {
     /**
@@ -77,7 +77,7 @@ var FpsMeter = (function () {
                 }
             }
 
-            requestedAnimationFrame = _requestAnimationFrame.requestAnimationFrame(frameHandler);
+            requestedAnimationFrame = (0, _requestAnimationFrameShim.requestAnimationFrame)(frameHandler);
         };
 
         frameHandler();
@@ -88,7 +88,7 @@ var FpsMeter = (function () {
 
             _this._callbacks = [];
 
-            _requestAnimationFrame.cancelAnimationFrame(requestedAnimationFrame);
+            (0, _requestAnimationFrameShim.cancelAnimationFrame)(requestedAnimationFrame);
 
             pageVisibility.dispose();
         };

@@ -1,6 +1,6 @@
 import PageVisibility from './page-visibility';
 import { createEnsureAvailabilityFn } from './oo-utils';
-import { requestAnimationFrame, cancelAnimationFrame } from 'request-animation-frame';
+import { requestAnimationFrame, cancelAnimationFrame } from 'request-animation-frame-shim';
 
 let ensureAvailability = createEnsureAvailabilityFn('_isDisposed');
 

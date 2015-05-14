@@ -16,7 +16,7 @@
     "average"
   ],
   "dependencies": {
-    "request-animation-frame": "^0.1.1"
+    "request-animation-frame-shim": "erykpiast/request-animation-frame-shim"
   },
   "devDependencies": {
     "babel": "~5.2",
@@ -49,10 +49,10 @@
     "aggregator-dist": "npm run aggregator-browserify && npm run aggregator-uglify",
     "precompile": "rm -rf dist/ && mkdir -p dist",
     "compile": "babel -d dist/ src/",
-    "prepublish": "npm run compile",
+    "prepublish": "npm run precompile && npm run compile",
     "release": "npm run release-patch",
-    "release-patch": "git checkout master && npm run compile; git commit -a -m 'Build dist/'; npm version patch && git push origin master --tags && npm publish",
-    "release-minor": "git checkout master && npm run compile; git commit -a -m 'Build dist/'; npm version minor && git push origin master --tags && npm publish",
-    "release-major": "git checkout master && npm run compile; git commit -a -m 'Build dist/'; npm version major && git push origin master --tags && npm publish"
+    "release-patch": "git checkout master && npm run prepublish; git commit -a -m 'Build dist/'; npm version patch && git push origin master --tags && npm publish",
+    "release-minor": "git checkout master && npm run prepublish; git commit -a -m 'Build dist/'; npm version minor && git push origin master --tags && npm publish",
+    "release-major": "git checkout master && npm run prepublish; git commit -a -m 'Build dist/'; npm version major && git push origin master --tags && npm publish"
   }
 }
