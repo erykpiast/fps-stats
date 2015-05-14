@@ -16,7 +16,7 @@
     "average"
   ],
   "dependencies": {
-    "request-animation-frame-shim": "erykpiast/request-animation-frame-shim"
+    "request-animation-frame-shim": "^0.1.0"
   },
   "devDependencies": {
     "babel": "~5.2",
