@@ -1,6 +1,6 @@
 {
   "name": "fps-stats",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "author": "Eryk Napierala",
   "description": "Module for measuring average frames per second value.",
   "license": "MIT",
