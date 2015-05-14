@@ -32,7 +32,7 @@ export default class FpsMeter {
         });
 
         let self = this;
-        (function frameHandler(currentTime) {
+        let frameHandler = function(currentTime) {
             if('undefined' !== typeof currentTime && !pageIsNotVisible) {
                 if(pageWasNotVisible) {
                     pageWasNotVisible = false;
@@ -57,7 +57,9 @@ export default class FpsMeter {
             }
 
             requestedAnimationFrame = requestAnimationFrame(frameHandler);
-        })();
+        };
+
+        frameHandler();
 
         this.dispose = () => {
             ensureAvailability(this);
