@@ -58,7 +58,7 @@ export default class FpsAggregator {
                 }
 
                 // pass the first and the last FPS entry, and also significan ones
-                if((currentE.first && (this._times.length === 0)) ||
+                if((this._times.length === 0) ||
                     currentE.last ||
                     significantChange
                 ) {

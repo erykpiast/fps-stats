@@ -86,7 +86,6 @@ export default class FpsMeter {
         if(result) {
             process.nextTick(() => {
                 callback({
-                    first: true,
                     avgFps: result.avgFps,
                     currentTime: this._framesTimes[this.framesTimes.length - 1]
                 });
